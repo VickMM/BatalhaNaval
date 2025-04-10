@@ -65,3 +65,100 @@ int main(){
 				MAT[lin][col]=0;
 			} 	
 		}
+	}
+	
+	void exibirCampoBatalha(void){
+			//exibindo a matriz	
+		for (int lin=0; lin<=4; lin++){
+			for (int col=0; col<=4; col++){
+				printf("%i", MAT[lin][col]);
+			}
+			printf("\n");		
+		}
+			 	
+		printf("\n\n");
+	}
+    
+    void posicionarObj(int tipoObj, int lin, int col){
+    	
+    	switch (tipoObj){
+    		case 1:
+    			if (lin != 0 && col != 0){
+					printf("Campo ja ocupado!\n");
+    			}else{
+    				if (lin > 0 && lin <= 4 && col < 3){
+    				MAT[lin][col] = 1;
+    				MAT[lin][col+1] = 1;
+					MAT[lin][col+2] = 1;
+					MAT[lin-1][col+1]=1;
+				} else{printf("Erro ao posicionar submarino!\n");}
+				}
+				
+			break;
+    		
+    		case 2: 
+    		    if (lin != 0 && col != 0){
+					printf("Campo ja ocupado!\n");
+    			}else{
+    				if (lin <= 4 && col <=1){
+    		    	MAT[lin][col] = 2;
+    		    	MAT[lin][col+1] = 2;
+    		    	MAT[lin][col+2] = 2;
+    		    	MAT[lin][col+3] = 2;
+				} else{printf("Erro ao posicionar porta-avioes!\n");}
+				}
+    		    
+			break;
+    		
+    		case 3:
+    			if (lin != 0 && col != 0){
+					printf("Campo ja ocupado!\n");
+    			}else{
+    				if (lin <= 3 && col < 4){
+    				MAT[lin][col] = 3;
+    				MAT[lin][col+1] = 3;
+				} else{printf("Erro ao posicionar navio!\n");}
+				}
+    			
+			break;
+    			
+    		default: 
+    		   printf("Insira um numero valido!\n");
+    		break;
+		}
+	}
+    void lancarMissel(int lin, int col){
+    	qtdMissel=qtdMissel - 1;
+    	if(MAT[lin][col] == 9){
+    		printf("Voce acertou uma area ja destruida!\n");
+		}else {
+			if(MAT[lin][col] == 0){
+			printf("***Agua!***\n\n");
+			}else{	
+				if(MAT[lin][col] == 1){
+    				printf("Voce acertou parte do submarino!\n");
+    				vidaSub--;
+				} else{
+					printf("Voce acertou parte do porta avioes!\n");
+					vidaPA--;
+					}
+					MAT[lin][col]=9;		
+				}
+			}				
+		}	
+	void verificaVida(int obj){
+		if(obj == 1){
+			if(vidaSub == 0){
+			   printf("Submarino totalmente destruido\n");	
+			} else{
+			   printf("Vida submarino = %d\n", vidaSub);	
+			}   	   
+		}
+		else{
+			if(vidaPA == 0){
+			   printf("Porta avioes totalmente destruido\n");	
+			} else{
+			   printf("Vida porta avioes = %d\n", vidaPA);	
+			}   	   
+		}
+	}
